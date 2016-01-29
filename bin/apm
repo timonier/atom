@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+
+IMAGE=${IMAGE:-timonier/atom}
+TAG=${TAG:-1.4.1}
+
+docker run \
+    $(env | cut -d= -f1 | awk '{print "-e", $1}') \
+    -e NO_AT_BRIDGE=1 \
+    -i \
+    -t \
+    -v /etc/fonts:/etc/fonts:ro \
+    -v /etc/group:/etc/group:ro \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /run:/run \
+    -v /tmp:/tmp \
+    -v /usr/share/gvfs:/usr/share/gvfs:ro \
+    -v /usr/share/icons:/usr/share/icons:ro \
+    -v /usr/share/fonts:/usr/share/fonts:ro \
+    -v /usr/share/themes:/usr/share/themes:ro \
+    -v /var/lib/dbus:/var/lib/dbus:ro \
+    -v "$HOME:$HOME" \
+    -v "$PWD:$PWD" \
+    -w "$PWD" \
+    --net=host \
+    --privileged \
+    --rm \
+    $IMAGE:$TAG apm "$@"
