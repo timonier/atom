@@ -22,7 +22,13 @@ ENV \
     XDG_VERSION=1.1.0
 
 RUN set -x \
+
+    # Prepare system
+
     && apt-get update \
+
+    # Install packages
+
     && apt-get install -y --no-install-recommends \
            ca-certificates=$CA_CERTIFICATES_VERSION* \
            curl=$CURL_VERSION* \
@@ -41,9 +47,17 @@ RUN set -x \
            unity-gtk2-module=$UNITY_GTK2_MODULE* \
            wget=$WGET_VERSION* \
            xdg-utils=$XDG_VERSION* \
-    && curl -sLo /tmp/atom.deb https://github.com/atom/atom/releases/download/v$ATOM_VERSION/atom-amd64.deb \
+
+    # Install atom
+
+    && curl -sLo /tmp/atom.deb "https://github.com/atom/atom/releases/download/v$ATOM_VERSION/atom-amd64.deb" \
     && dpkg -i /tmp/atom.deb \
-    && rm -rf /tmp/* /var/lib/apt/lists/*
+
+    # Clean
+
+    && rm -rf \
+           /tmp/* \
+           /var/lib/apt/lists/*
 
 COPY ./root /
 

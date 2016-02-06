@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 fail() {
     echo $1 1>&2
@@ -7,10 +8,11 @@ fail() {
 }
 
 install() {
-    IMAGE=${IMAGE:-timonier/atom}
-    TAG=${TAG:-1.4.1}
-
-    docker run --rm --entrypoint=/bin/bash -v /:/host $IMAGE:$TAG -c "cp $1 /host/$1"
+    docker run \
+        -v /:/host \
+        --entrypoint=/bin/bash \
+        --rm \
+        ${IMAGE:-timonier/atom}:${TAG:-1.4.1} -c "cp $1 /host/$1"
 }
 
 [[ $# -lt 1 ]] && fail "Invalid number of arguments"
@@ -19,23 +21,21 @@ install() {
 
 case $1 in
     install )
-        curl -sLo /usr/local/bin/apm https://github.com/timonier/atom/raw/master/bin/apm
+        curl -sLo /usr/local/bin/apm "https://github.com/timonier/atom/raw/master/bin/apm"
         chmod +x /usr/local/bin/apm
-        ln -fs /usr/local/bin/apm /usr/bin/atm
 
-        curl -sLo /usr/local/bin/atom https://github.com/timonier/atom/raw/master/bin/atom
+        curl -sLo /usr/local/bin/atom "https://github.com/timonier/atom/raw/master/bin/atom"
         chmod +x /usr/local/bin/atom
-        ln -fs /usr/local/bin/atm /usr/bin/apm
 
         install /usr/share/applications/atom.desktop
+        sed -i 's@/usr/share/atom/@@g' /usr/share/applications/atom.desktop
+
         install /usr/share/pixmaps/atom.png
     ;;
 
     uninstall )
-        rm -f /usr/bin/apm
-        rm -f /usr/bin/atm
         rm -f /usr/local/bin/apm
-        rm -f /usr/local/bin/atm
+        rm -f /usr/local/bin/atom
         rm -f /usr/share/applications/atom.desktop
         rm -f /usr/share/pixmaps/atom.png
     ;;

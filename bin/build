@@ -1,8 +1,4 @@
 #!/bin/bash
-set -e
-cd "`dirname "$0"`/.."
+cd "`dirname "$0"`/../src"
 
-IMAGE=${IMAGE:-timonier/atom}
-TAG=${TAG:-1.4.1}
-
-docker build -t $IMAGE:$TAG src/.
+docker build -t ${IMAGE:-timonier/atom}:${TAG:-1.4.1} .

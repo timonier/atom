@@ -1,19 +1,22 @@
-### Installation
+# Installation
 
 Copy the file `bin/atom` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
 
 ```bash
-sudo curl -sLo /usr/local/bin/atom https://github.com/timonier/atom/raw/master/bin/atom
+sudo curl -sLo /usr/local/bin/apm "https://github.com/timonier/atom/raw/master/bin/apm"
+sudo chmod +x /usr/local/bin/apm
+
+sudo curl -sLo /usr/local/bin/atom "https://github.com/timonier/atom/raw/master/bin/atom"
 sudo chmod +x /usr/local/bin/atom
 ```
 
 Linux users can use the [installer](https://github.com/timonier/atom/blob/master/bin/installer):
 
 ```bash
-curl -sSL https://github.com/timonier/atom/raw/master/bin/installer | sudo bash -s install
+curl -sL "https://github.com/timonier/atom/raw/master/bin/installer" | sudo bash -s install
 ```
 
-### Usage
+# Usage
 
 Run the command `atom`:
 
@@ -32,7 +35,7 @@ TAG="..." atom
 # atom ...
 ```
 
-### Contributing
+# Contributing
 
 1. Fork it.
 2. Create your branch: `git checkout -b my-new-feature`.
@@ -42,7 +45,7 @@ TAG="..." atom
 
 __Note__: Use the script `bin/build` to test your modifications locally.
 
-### Links
+# Links
 
 * [atom](https://atom.io/)
 * [image "timonier/atom"](https://hub.docker.com/r/timonier/atom/)
