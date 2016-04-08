@@ -21,7 +21,7 @@ docker run \
     -v "$HOME:$HOME" \
     -v "$PWD:$PWD" \
     -w "$PWD" \
-    --net=host \
+    --net host \
     --privileged \
     --rm \
     ${IMAGE:-timonier/atom}:${TAG:-1.4.1} /usr/bin/apm "$@"
