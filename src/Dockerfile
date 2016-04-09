@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Morgan Auchede <morgan.auchede@gmail.com>
 
 ENV \
-    ATOM_VERSION=1.5.2 \
+    ATOM_VERSION=1.5.3 \
     DEBIAN_FRONTEND=noninteractive \
     NO_AT_BRIDGE=1
 
