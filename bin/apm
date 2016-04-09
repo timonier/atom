@@ -24,4 +24,4 @@ docker run \
     --net host \
     --privileged \
     --rm \
-    ${IMAGE:-timonier/atom}:${TAG:-1.5.0} /usr/bin/apm "$@"
+    ${IMAGE:-timonier/atom}:${TAG:-1.5.1} /usr/bin/apm "$@"
