@@ -27,11 +27,14 @@ atom -f
 # Start Atom
 ```
 
-__Note__: By default, the version `1.6.2` will be used. To change the version, define the `TAG` before the command:
+__Note__: By default, the version `1.7.0` will be used. To change the version, define the `TAG` before the command:
 
 ```sh
 atom --version
-# 1.6.2
+# Atom    : 1.7.0
+# Electron: 0.36.8
+# Chrome  : 47.0.2526.110
+# Node    : 5.1.1
 
 TAG="1.4.1" atom
 # 1.4.1
