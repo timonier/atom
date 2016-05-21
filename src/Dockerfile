@@ -3,12 +3,13 @@ MAINTAINER Morgan Auchede <morgan.auchede@gmail.com>
 
 ENV \
     ATOM_VERSION=1.7.0 \
-    DEBIAN_FRONTEND=noninteractive \
     NO_AT_BRIDGE=1
 
 RUN set -x \
 
     # Prepare system
+
+    && export DEBIAN_FRONTEND=noninteractive \
 
     && apt-get update \
 
