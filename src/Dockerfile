@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 MAINTAINER Morgan Auchede <morgan.auchede@gmail.com>
 
 ENV \
-    ATOM_VERSION=1.7.1 \
+    ATOM_VERSION=1.7.2 \
     GOSU_VERSION=1.7 \
     NO_AT_BRIDGE=1
 
