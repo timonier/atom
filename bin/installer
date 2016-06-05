@@ -12,7 +12,7 @@ install() {
         -v /:/host \
         --entrypoint=/bin/sh \
         --rm \
-        ${IMAGE:-timonier/atom}:${TAG:-1.7.0} -c "cp $1 /host/$1"
+        ${IMAGE:-timonier/atom}:${TAG:-1.7.1} -c "cp $1 /host/$1"
 }
 
 [ $# -lt 1 ] && fail "Invalid number of arguments"
