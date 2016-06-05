@@ -1,8 +1,9 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Morgan Auchede <morgan.auchede@gmail.com>
 
 ENV \
     ATOM_VERSION=1.7.0 \
+    GOSU_VERSION=1.7 \
     NO_AT_BRIDGE=1
 
 RUN set -x \
@@ -38,6 +39,11 @@ RUN set -x \
 
     && curl -sLo /tmp/atom.deb "https://github.com/atom/atom/releases/download/v$ATOM_VERSION/atom-amd64.deb" \
     && dpkg -i /tmp/atom.deb \
+
+    # Install gosu
+
+    && curl -sLo /usr/sbin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64"  \
+    && chmod +x /usr/sbin/gosu \
 
     # Clean
 
