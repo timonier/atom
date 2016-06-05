@@ -25,4 +25,4 @@ docker run \
     --net host \
     --privileged \
     --rm \
-    ${IMAGE:-timonier/atom}:${TAG:-1.7.3} /usr/bin/atom -f "$@"
+    ${IMAGE:-timonier/atom}:${TAG:-1.7.4} /usr/bin/atom -f "$@"
