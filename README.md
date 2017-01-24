@@ -1,8 +1,10 @@
 # README
 
+The hackable text editor
+
 ## Installation
 
-Copy the file `bin/atom` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
+Copy `bin/atom` and `bin/apm` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
 
 ```sh
 sudo curl -sLo /usr/local/bin/apm "https://github.com/timonier/atom/raw/master/bin/apm"
@@ -23,7 +25,7 @@ curl -sL "https://github.com/timonier/atom/raw/master/bin/installer" | sudo sh -
 Run the command `atom`:
 
 ```sh
-atom -f
+atom
 # Start Atom
 ```
 
@@ -54,3 +56,4 @@ __Note__: Use the script `bin/build` to test your modifications locally.
 
 * [atom](https://atom.io/)
 * [image "timonier/atom"](https://hub.docker.com/r/timonier/atom/)
+* [timonier/dumb-entrypoint](https://github.com/timonier/dumb-entrypoint)

@@ -1,9 +1,10 @@
 FROM ubuntu:16.04
-MAINTAINER Morgan Auchede <morgan.auchede@gmail.com>
+
+LABEL \
+    maintainer="Morgan Auchede <morgan.auchede@gmail.com>"
 
 ENV \
     ATOM_VERSION=1.7.4 \
-    GOSU_VERSION=1.7 \
     NO_AT_BRIDGE=1
 
 RUN set -x \
@@ -25,11 +26,14 @@ RUN set -x \
            gtk2-engines-murrine \
            gvfs-bin \
            libasound2 \
+           libatk-adaptor \
            libcanberra-gtk-module \
+           libgail-common \
            libgtk2.0-0 \
            libnotify4 \
            libnss3 \
            libxtst6 \
+           overlay-scrollbar-gtk2 \
            python \
            unity-gtk2-module \
            wget \
@@ -37,13 +41,12 @@ RUN set -x \
 
     # Install atom
 
-    && curl -sLo /tmp/atom.deb "https://github.com/atom/atom/releases/download/v$ATOM_VERSION/atom-amd64.deb" \
+    && curl -sLo /tmp/atom.deb "https://github.com/atom/atom/releases/download/v${ATOM_VERSION}/atom-amd64.deb" \
     && dpkg -i /tmp/atom.deb \
 
-    # Install gosu
+    # Install timonier/dumb-entrypoint
 
-    && curl -sLo /usr/sbin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64"  \
-    && chmod +x /usr/sbin/gosu \
+    && curl -sL "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
 
     # Clean
 
@@ -51,6 +54,4 @@ RUN set -x \
            /tmp/* \
            /var/lib/apt/lists/*
 
-COPY ./rootfs /
-
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "dumb-init" , "--" , "dumb-entrypoint" ]
