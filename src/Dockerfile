@@ -1,13 +1,13 @@
-FROM ubuntu:16.04
+FROM ubuntu:latest
 
 LABEL \
     maintainer="Morgan Auchede <morgan.auchede@gmail.com>"
 
 ENV \
-    ATOM_VERSION=1.7.4 \
+    ATOM_VERSION=latest \
     NO_AT_BRIDGE=1
 
-RUN set -x \
+RUN set -eux \
 
     # Prepare system
 
@@ -17,7 +17,7 @@ RUN set -x \
 
     # Install packages
 
-    && apt-get install -y \
+    && apt-get install --yes \
            ca-certificates \
            curl \
            gconf2 \
@@ -32,7 +32,10 @@ RUN set -x \
            libgtk2.0-0 \
            libnotify4 \
            libnss3 \
+           libxkbfile1 \
+           libxss1 \
            libxtst6 \
+           locales \
            overlay-scrollbar-gtk2 \
            python \
            unity-gtk2-module \
@@ -41,16 +44,18 @@ RUN set -x \
 
     # Install atom
 
-    && curl -sLo /tmp/atom.deb "https://github.com/atom/atom/releases/download/v${ATOM_VERSION}/atom-amd64.deb" \
-    && dpkg -i /tmp/atom.deb \
+    && export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/atom/${ATOM_VERSION}" | xargs) \
 
-    # Install timonier/dumb-entrypoint
+    && curl --location --output /tmp/atom.deb "https://github.com/atom/atom/releases/download/v${ATOM_VERSION}/atom-amd64.deb" \
+    && dpkg --install /tmp/atom.deb \
 
-    && curl -sL "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
+    # Install dumb-entrypoint
+
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
 
     # Clean
 
-    && rm -rf \
+    && rm --force --recursive \
            /tmp/* \
            /var/lib/apt/lists/*
 
