@@ -1,11 +1,11 @@
 #!/bin/sh
-set -eux
+set -ex
 
 # Check environment
 
 fail() {
-    echo "$1" 1>&2
-    echo "Usage: $(basename "$0") [install|uninstall] (apm|atom)*" 1>&2
+    echo 1>&2 "$1"
+    echo 1>&2 "Usage: $(basename "$0") [install|uninstall] (apm|atom)*"
     exit 1
 }
 
@@ -31,7 +31,7 @@ install() {
         "${IMAGE:-timonier/atom}:${TAG:-latest}" -c "cp '$1' '/host/$1'"
 }
 
-case $1 in
+case "$1" in
     install )
         if [ "$#" -eq 1 ] || echo "$*" | grep --quiet apm ; then
             curl --location --output /usr/local/bin/apm "https://github.com/timonier/atom/raw/master/bin/apm"

@@ -7,7 +7,7 @@ ENV \
     ATOM_VERSION=latest \
     NO_AT_BRIDGE=1
 
-RUN set -eux \
+RUN set -ex \
 
     # Prepare system
 
@@ -42,16 +42,18 @@ RUN set -eux \
            wget \
            xdg-utils \
 
-    # Install atom
+    # Install atom/atom
 
     && export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/atom/${ATOM_VERSION}" | xargs) \
 
     && curl --location --output /tmp/atom.deb "https://github.com/atom/atom/releases/download/v${ATOM_VERSION}/atom-amd64.deb" \
     && dpkg --install /tmp/atom.deb \
 
-    # Install dumb-entrypoint
+    # Install timonier/dumb-entrypoint
 
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/bin/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-init/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
+    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
 
     # Clean
 
