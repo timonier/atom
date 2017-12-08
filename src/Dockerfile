@@ -8,15 +8,14 @@ ENV \
     NO_AT_BRIDGE=1
 
 RUN set -ex \
-
+\
     # Prepare system
-
+\
     && export DEBIAN_FRONTEND=noninteractive \
-
     && apt-get update \
-
+\
     # Install packages
-
+\
     && apt-get install --yes \
            ca-certificates \
            curl \
@@ -41,22 +40,21 @@ RUN set -ex \
            unity-gtk2-module \
            wget \
            xdg-utils \
-
+\
     # Install atom/atom
-
-    && export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/atom/${ATOM_VERSION}" | xargs) \
-
+\
+    && export $(curl --location "https://github.com/timonier/version-lister/raw/generated/atom/atom/${ATOM_VERSION}" | xargs) \
     && curl --location --output /tmp/atom.deb "https://github.com/atom/atom/releases/download/v${ATOM_VERSION}/atom-amd64.deb" \
     && dpkg --install /tmp/atom.deb \
-
+\
     # Install timonier/dumb-entrypoint
-
+\
     && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
     && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-init/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
     && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
-
+\
     # Clean
-
+\
     && rm --force --recursive \
            /tmp/* \
            /var/lib/apt/lists/*
