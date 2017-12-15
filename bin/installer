@@ -5,7 +5,7 @@ set -ex
 
 fail() {
     echo 1>&2 "$1"
-    echo 1>&2 "Usage: $(basename "$0") [install|uninstall] (apm|atom)*"
+    echo 1>&2 "Usage: $(basename "$0") [install|uninstall]"
     exit 1
 }
 
@@ -33,32 +33,23 @@ install() {
 
 case "$1" in
     install )
-        if [ "$#" -eq 1 ] || echo "$*" | grep --quiet apm ; then
-            curl --location --output /usr/local/bin/apm "https://github.com/timonier/atom/raw/master/bin/apm"
-            chmod +x /usr/local/bin/apm
-        fi
+        curl --location --output /usr/local/bin/apm "https://github.com/timonier/atom/raw/master/bin/cmd"
+        chmod +x /usr/local/bin/apm
 
-        if [ "$#" -eq 1 ] || echo "$*" | grep --quiet atom ; then
-            curl --location --output /usr/local/bin/atom "https://github.com/timonier/atom/raw/master/bin/atom"
-            chmod +x /usr/local/bin/atom
+        curl --location --output /usr/local/bin/atom "https://github.com/timonier/atom/raw/master/bin/cmd"
+        chmod +x /usr/local/bin/atom
 
-            install /usr/share/applications/atom.desktop
-            sed -i "s@/usr/share/atom/@@g" /usr/share/applications/atom.desktop
-
-            install /usr/share/pixmaps/atom.png
-        fi
+        install /usr/share/applications/atom.desktop
+        install /usr/share/pixmaps/atom.png
+        sed --in-place "s@/usr/share/atom/@@g" /usr/share/applications/atom.desktop
+        sed --in-place "s@atom %F@atom --foreground %F@g" /usr/share/applications/atom.desktop
     ;;
 
     uninstall )
-        if [ "$#" -eq 1 ] || echo "$*" | grep --quiet apm ; then
-            rm --force /usr/local/bin/apm
-        fi
-
-        if [ "$#" -eq 1 ] || echo "$*" | grep --quiet atom ; then
-            rm --force /usr/local/bin/atom
-            rm --force /usr/share/applications/atom.desktop
-            rm --force /usr/share/pixmaps/atom.png
-        fi
+        rm --force /usr/local/bin/apm
+        rm --force /usr/local/bin/atom
+        rm --force /usr/share/applications/atom.desktop
+        rm --force /usr/share/pixmaps/atom.png
     ;;
 
     * )

@@ -28,4 +28,4 @@ docker run \
     --volume "${HOME}:${HOME}" \
     --volume "${PWD}:${PWD}" \
     --workdir "${PWD}" \
-    "${IMAGE:-timonier/atom}:${TAG:-latest}" atom --foreground "$@"
+    "${IMAGE:-timonier/atom}:${TAG:-latest}" "$(basename "$0")" "$@"

@@ -4,16 +4,6 @@ The hackable text editor
 
 ## Installation
 
-Copy `bin/atom` and `bin/apm` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
-
-```sh
-sudo curl --location --output /usr/local/bin/apm "https://github.com/timonier/atom/raw/master/bin/apm"
-sudo chmod +x /usr/local/bin/apm
-
-sudo curl --location --output /usr/local/bin/atom "https://github.com/timonier/atom/raw/master/bin/atom"
-sudo chmod +x /usr/local/bin/atom
-```
-
 Linux users can use the [installer](https://github.com/timonier/atom/blob/master/bin/installer):
 
 ```sh
