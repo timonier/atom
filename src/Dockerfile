@@ -16,7 +16,7 @@ RUN set -ex \
 \
     # Install packages
 \
-    && apt-get install --yes \
+    && apt-get install --no-install-recommends --yes \
            ca-certificates \
            curl \
            gconf2 \
@@ -31,6 +31,7 @@ RUN set -ex \
            libgtk2.0-0 \
            libnotify4 \
            libnss3 \
+           libx11-xcb1 \
            libxkbfile1 \
            libxss1 \
            libxtst6 \
@@ -50,7 +51,6 @@ RUN set -ex \
     # Install timonier/dumb-entrypoint
 \
     && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-entrypoint/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
-    && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/dumb-init/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
     && curl --location "https://github.com/timonier/dumb-entrypoint/raw/master/src/gosu/installer" | INSTALL_DIRECTORY="/usr/sbin" sh -s -- install \
 \
     # Clean
@@ -59,4 +59,4 @@ RUN set -ex \
            /tmp/* \
            /var/lib/apt/lists/*
 
-ENTRYPOINT [ "dumb-init" , "--" , "dumb-entrypoint" ]
+ENTRYPOINT [ "dumb-entrypoint" ]
